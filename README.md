@@ -46,17 +46,14 @@ De 3.955 altas seleccionadas, 876 tienen reingreso temprano registrado y 3.079 n
 
 ## Segunda iteración (v2, 8 de octubre de 2026)
 
-`PoC_Reingresos_Diabetes_v2.ipynb` incorpora la devolución de la primera entrega (`feedback.md`) y el pedido de la segunda iteración. Usa la misma cohorte y la misma partición por paciente que la v1, verificada contra `output/split_assignments.csv`. El código común está en `reingresos_utils.py`.
+`PoC_Reingresos_Diabetes_v2.ipynb` incorpora la devolución de la primera entrega y el pedido de la segunda iteración. Usa la misma cohorte y la misma partición por paciente que la v1, verificada contra `output/split_assignments.csv`. El código común está en `reingresos_utils.py`.
 
 **Resultado.** El modelo se elige con validación cruzada agrupada por paciente y repetida (5 folds × 3) sobre train + validación. Se cruzaron LR, HGB, XGBoost y LightGBM con cuatro estrategias de desbalance: ninguna, pesos de clase, undersampling y SMOTENC. Gana LightGBM de baja capacidad **sin remuestreo** (AP de CV 0,226 ± 0,005 frente a 0,216 de la logística; mejor en los 15 folds). Ninguna técnica de desbalance mejora la AP, y SMOTENC la empeora en todas las familias. En test (ya consultado en la v1, por lo que es evidencia secundaria): AUROC 0,679 (IC95 0,667–0,692), AP 0,224 (0,209–0,242), lift@20 % 1,95. La mejora sobre la logística v1 es pequeña (ΔAP +0,0005 a +0,0135) y amplia sobre LACE aproximado (ΔAP +0,067 a +0,093). La curva de decisión muestra que el cupo de 20 % (umbral ≈0,15) se justifica para intervenciones que cuesten hasta ≈3 % de un reingreso, si evitan el 20 % de los reingresos de quienes las reciben.
 
 **Qué agrega:** baselines LACE y HOSPITAL; recalibración (Platt frente a isotónica) en validación; curvas de decisión con `dcurves`; subgrupos con IC95 %; análisis de HbA1c; diccionario de datos con sistema de origen, disponibilidad al alta y mapeo a CIE-10 / SNOMED CT / LOINC / ATC; ficha TRIPOD+AI con PROBAST; esbozo de ensayo pragmático; registro de corridas con MLflow.
 
-**Validación temporal.** UCI no tiene fechas, así que la v2 no hace partición temporal. `PoC_Reingresos_MIMIC_IV_Temporal.ipynb` implementa la partición temporal por `anchor_year_group`: train 2008–2013, validación 2014–2016, OOT 2017–2019 y 2020–2022. Incluye validación cruzada temporal de ventana expansiva, LACE y HOSPITAL completos y una tabla de degradación por período. Requiere acceso credencial a MIMIC-IV en PhysioNet: si faltan los datos en `data/mimic-iv/hosp/`, el notebook se detiene y muestra los pasos de acceso. Se probó de punta a punta con datos sintéticos que siguen el esquema de MIMIC-IV, sin resultados reales. Los datos de MIMIC no se versionan.
-
 **Archivos nuevos:**
 - `PoC_Reingresos_Diabetes_v2.ipynb`: notebook v2 ya ejecutado (≈20 min en CPU de 8 núcleos).
-- `PoC_Reingresos_MIMIC_IV_Temporal.ipynb`: experimento temporal en MIMIC-IV (sin ejecutar: requiere datos).
 - `reingresos_utils.py`: métricas, modelos, desbalance, CV, LACE/HOSPITAL, Charlson CIE-9/CIE-10, bootstrap agrupado, recalibración y MLflow.
 - `output/v2/`: `results_v2.json`, `cv_resumen.csv`, `cv_folds.csv`, `metricas_test.csv`, `intervalos_bootstrap.csv`, `escenarios_costo.csv`, `subgrupos_test.csv`, `diccionario_datos.csv`, `mapeo_cie9_cie10_grupos.csv`, `ficha_modelo.md` y gráficos.
 - `mlruns/`: corridas de MLflow (no versionado). Ver con `mlflow ui --backend-store-uri sqlite:///mlruns/mlflow.db`.
