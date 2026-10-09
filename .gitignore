@@ -6,3 +6,4 @@ mlruns/
 mlflow.db
 # MIMIC-IV: datos con acuerdo de uso (DUA), nunca versionar.
 data/mimic-iv/
+.DS_Store

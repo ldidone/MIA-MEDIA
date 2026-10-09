@@ -1,4 +1,4 @@
-"""Create/update the private Hugging Face Docker Space for the demo."""
+"""Create/update the public Hugging Face Docker Space for the demo."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -34,10 +34,10 @@ def main() -> None:
         repo_id=REPO_ID,
         repo_type="space",
         space_sdk="docker",
-        private=True,
+        private=False,
         exist_ok=True,
     )
-    api.update_repo_settings(REPO_ID, repo_type="space", private=True)
+    api.update_repo_settings(REPO_ID, repo_type="space", private=False)
     commit = api.create_commit(
         repo_id=REPO_ID,
         repo_type="space",
@@ -52,8 +52,8 @@ def main() -> None:
         ),
     )
     info = api.repo_info(REPO_ID, repo_type="space")
-    if not info.private:
-        raise RuntimeError("The Space was not created as private.")
+    if info.private:
+        raise RuntimeError("The Space was not made public.")
     print(f"Commit: {commit.commit_url}")
     print(f"Space: https://huggingface.co/spaces/{REPO_ID}")
 

@@ -74,7 +74,7 @@ streamlit run demo/app.py
 
 Abrir `http://localhost:8501`. No requiere Internet ni reentrena el modelo. El recorrido sugerido y las instrucciones para reconstruir el artefacto están en `demo/README.md`.
 
-La misma aplicación está desplegada como un [Space privado en Hugging Face](https://huggingface.co/spaces/ldidone/reingresos-diabetes-demo). La configuración Docker y el script de actualización están en `deploy/huggingface/`.
+La misma aplicación está desplegada como un [Space público en Hugging Face](https://huggingface.co/spaces/ldidone/reingresos-diabetes-demo). La configuración Docker y el script de actualización están en `deploy/huggingface/`.
 
 ## Fuentes y licencia del dataset
 

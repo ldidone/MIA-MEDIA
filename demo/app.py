@@ -622,6 +622,6 @@ with tab_model:
     )
 
 st.caption(
-    "PoC de reingreso hospitalario a 30 días · Lucas Didone · CEIA, FIUBA · "
+    "PoC de reingreso hospitalario a 30 días · Lucas Didone · MIA, FIUBA · "
     "Fuente: UCI Diabetes 130-US Hospitals (CC BY 4.0)."
 )

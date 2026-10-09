@@ -21,7 +21,7 @@ Streamlit abrirá `http://localhost:8501`. La aplicación no requiere Internet n
 
 ## Hugging Face Spaces
 
-La demo está desplegada como un Space Docker privado:
+La demo está desplegada como un Space Docker público:
 
 https://huggingface.co/spaces/ldidone/reingresos-diabetes-demo
 
