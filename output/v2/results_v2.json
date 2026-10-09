@@ -1,0 +1,1089 @@
+{
+  "fecha": "2026-10-08",
+  "version": "v2",
+  "seed": 42,
+  "versions": {
+    "python": "3.13.5",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.8.0",
+    "xgboost": "3.4.1",
+    "lightgbm": "4.7.0",
+    "imbalanced-learn": "0.14.2",
+    "mlflow": "3.17.0"
+  },
+  "sha256_zip": "f82ac129da2ddd2299391ff6fbae3a6a58b3edcf59ac9d7bd480c00fe453112a",
+  "source_url": "https://archive.ics.uci.edu/static/public/296/diabetes+130-us+hospitals+for+years+1999-2008.zip",
+  "cohort_flow": [
+    {
+      "etapa": "Datos originales",
+      "episodios": 101766,
+      "excluidos": 0
+    },
+    {
+      "etapa": "Edad ≥20 años",
+      "episodios": 100914,
+      "excluidos": 852
+    },
+    {
+      "etapa": "Sin fallecimiento ni hospice",
+      "episodios": 98493,
+      "excluidos": 2421
+    },
+    {
+      "etapa": "Sexo registrado válido",
+      "episodios": 98490,
+      "excluidos": 3
+    }
+  ],
+  "cohort_n": 98490,
+  "cohort_patients": 69311,
+  "cohort_prevalence": 0.11443801401157477,
+  "features": [
+    "gender",
+    "age",
+    "admission_type_id",
+    "discharge_disposition_id",
+    "admission_source_id",
+    "time_in_hospital",
+    "medical_specialty",
+    "num_lab_procedures",
+    "num_procedures",
+    "num_medications",
+    "number_outpatient",
+    "number_emergency",
+    "number_inpatient",
+    "diag_1",
+    "diag_2",
+    "diag_3",
+    "number_diagnoses",
+    "max_glu_serum",
+    "A1Cresult",
+    "metformin",
+    "repaglinide",
+    "nateglinide",
+    "chlorpropamide",
+    "glimepiride",
+    "acetohexamide",
+    "glipizide",
+    "glyburide",
+    "tolbutamide",
+    "pioglitazone",
+    "rosiglitazone",
+    "acarbose",
+    "miglitol",
+    "troglitazone",
+    "tolazamide",
+    "insulin",
+    "glyburide-metformin",
+    "glipizide-metformin",
+    "glimepiride-pioglitazone",
+    "metformin-rosiglitazone",
+    "metformin-pioglitazone",
+    "change",
+    "diabetesMed",
+    "diag_1_group",
+    "diag_2_group",
+    "diag_3_group"
+  ],
+  "excluded_features": [
+    "encounter_id",
+    "patient_nbr",
+    "readmitted",
+    "race",
+    "payer_code",
+    "citoglipton",
+    "examide",
+    "weight"
+  ],
+  "cv": {
+    "scheme": "5x3 StratifiedGroupKFold (patient)",
+    "xgb_grid": [
+      {
+        "max_depth": 3,
+        "colsample_bytree": 0.5
+      },
+      {
+        "max_depth": 3,
+        "colsample_bytree": 0.8
+      },
+      {
+        "max_depth": 4,
+        "colsample_bytree": 0.5
+      },
+      {
+        "max_depth": 4,
+        "colsample_bytree": 0.8
+      }
+    ],
+    "lgbm_grid": [
+      {
+        "num_leaves": 7,
+        "colsample_bytree": 0.5
+      },
+      {
+        "num_leaves": 7,
+        "colsample_bytree": 0.8
+      },
+      {
+        "num_leaves": 15,
+        "colsample_bytree": 0.5
+      },
+      {
+        "num_leaves": 15,
+        "colsample_bytree": 0.8
+      }
+    ],
+    "sampling_ratio": 0.5,
+    "summary": [
+      {
+        "index": "LGBM-num_leaves15-colsample_bytree0.5 | none",
+        "kind": "LGBM",
+        "strategy": "none",
+        "AP_mean": 0.22633758052774933,
+        "AP_std": 0.004878147794503292,
+        "AUROC_mean": 0.6660569232054142,
+        "AUROC_std": 0.00541839105263769,
+        "Brier_mean": 0.09673439967123193,
+        "Lift@20_mean": 1.9111172713100717
+      },
+      {
+        "index": "LGBM-num_leaves7-colsample_bytree0.5 | none",
+        "kind": "LGBM",
+        "strategy": "none",
+        "AP_mean": 0.2253156187198095,
+        "AP_std": 0.004544742219627878,
+        "AUROC_mean": 0.6667392156971148,
+        "AUROC_std": 0.005312026356010865,
+        "Brier_mean": 0.09672875715598767,
+        "Lift@20_mean": 1.9177730710733754
+      },
+      {
+        "index": "LGBM-num_leaves15-colsample_bytree0.5 | weights",
+        "kind": "LGBM",
+        "strategy": "weights",
+        "AP_mean": 0.22450179380486793,
+        "AP_std": 0.004890949221686911,
+        "AUROC_mean": 0.6646912906846996,
+        "AUROC_std": 0.005802463342079022,
+        "Brier_mean": 0.20754098822480177,
+        "Lift@20_mean": 1.9116650839430998
+      },
+      {
+        "index": "XGB-max_depth3-colsample_bytree0.5 | none",
+        "kind": "XGB",
+        "strategy": "none",
+        "AP_mean": 0.22392639255186253,
+        "AP_std": 0.0045136101051047265,
+        "AUROC_mean": 0.664616910417525,
+        "AUROC_std": 0.006205736192711734,
+        "Brier_mean": 0.09683970014254252,
+        "Lift@20_mean": 1.9040860709340108
+      },
+      {
+        "index": "XGB-max_depth4-colsample_bytree0.5 | none",
+        "kind": "XGB",
+        "strategy": "none",
+        "AP_mean": 0.2229474248075665,
+        "AP_std": 0.005102421267357636,
+        "AUROC_mean": 0.6627839077304787,
+        "AUROC_std": 0.006522198572112568,
+        "Brier_mean": 0.09697477767864864,
+        "Lift@20_mean": 1.8931788992125382
+      },
+      {
+        "index": "LGBM-num_leaves7-colsample_bytree0.8 | none",
+        "kind": "LGBM",
+        "strategy": "none",
+        "AP_mean": 0.2225651340326696,
+        "AP_std": 0.005340195729896644,
+        "AUROC_mean": 0.6634654839301202,
+        "AUROC_std": 0.005858793169555891,
+        "Brier_mean": 0.09692598295500075,
+        "Lift@20_mean": 1.895581851453138
+      },
+      {
+        "index": "LGBM-num_leaves15-colsample_bytree0.8 | none",
+        "kind": "LGBM",
+        "strategy": "none",
+        "AP_mean": 0.2210219294300741,
+        "AP_std": 0.005101696506451984,
+        "AUROC_mean": 0.6610221474359322,
+        "AUROC_std": 0.005810627690174636,
+        "Brier_mean": 0.09712219426298635,
+        "Lift@20_mean": 1.8787544908743803
+      },
+      {
+        "index": "LGBM-num_leaves15-colsample_bytree0.5 | under",
+        "kind": "LGBM",
+        "strategy": "under",
+        "AP_mean": 0.2207723516194189,
+        "AP_std": 0.004378478323216931,
+        "AUROC_mean": 0.6647570933235123,
+        "AUROC_std": 0.0050002984990998225,
+        "Brier_mean": 0.14201902946362222,
+        "Lift@20_mean": 1.902606523360114
+      },
+      {
+        "index": "HGB | none",
+        "kind": "HGB",
+        "strategy": "none",
+        "AP_mean": 0.22052621436882477,
+        "AP_std": 0.005973825992579305,
+        "AUROC_mean": 0.6595768228759682,
+        "AUROC_std": 0.00646468840327351,
+        "Brier_mean": 0.09711346504473828,
+        "Lift@20_mean": 1.8909642235586581
+      },
+      {
+        "index": "XGB-max_depth3-colsample_bytree0.5 | weights",
+        "kind": "XGB",
+        "strategy": "weights",
+        "AP_mean": 0.22046675853291423,
+        "AP_std": 0.004563716265894962,
+        "AUROC_mean": 0.6625125358250156,
+        "AUROC_std": 0.006117841187927803,
+        "Brier_mean": 0.2135426143805186,
+        "Lift@20_mean": 1.9007551705405257
+      },
+      {
+        "index": "HGB | weights",
+        "kind": "HGB",
+        "strategy": "weights",
+        "AP_mean": 0.21850452792495326,
+        "AP_std": 0.0053003878576486,
+        "AUROC_mean": 0.6577131999053969,
+        "AUROC_std": 0.006227372936944579,
+        "Brier_mean": 0.20499998958414492,
+        "Lift@20_mean": 1.8717277778357102
+      },
+      {
+        "index": "XGB-max_depth3-colsample_bytree0.8 | none",
+        "kind": "XGB",
+        "strategy": "none",
+        "AP_mean": 0.21811728146876286,
+        "AP_std": 0.004354580784057439,
+        "AUROC_mean": 0.6595082152556644,
+        "AUROC_std": 0.0060302779405558,
+        "Brier_mean": 0.09721257934967677,
+        "Lift@20_mean": 1.8800488582994015
+      },
+      {
+        "index": "XGB-max_depth3-colsample_bytree0.5 | under",
+        "kind": "XGB",
+        "strategy": "under",
+        "AP_mean": 0.21792332138421114,
+        "AP_std": 0.0040514905030044936,
+        "AUROC_mean": 0.661945056675895,
+        "AUROC_std": 0.004922911003998976,
+        "Brier_mean": 0.1419319937626521,
+        "Lift@20_mean": 1.8944684623769659
+      },
+      {
+        "index": "LR | none",
+        "kind": "LR",
+        "strategy": "none",
+        "AP_mean": 0.21614936383032687,
+        "AP_std": 0.004969267347833741,
+        "AUROC_mean": 0.6569400371606225,
+        "AUROC_std": 0.0061108547720808235,
+        "Brier_mean": 0.09740994134395943,
+        "Lift@20_mean": 1.8722786173055523
+      },
+      {
+        "index": "HGB | under",
+        "kind": "HGB",
+        "strategy": "under",
+        "AP_mean": 0.21614545514157069,
+        "AP_std": 0.006168523524786108,
+        "AUROC_mean": 0.6570245227887553,
+        "AUROC_std": 0.005426870988344482,
+        "Brier_mean": 0.14310857914400338,
+        "Lift@20_mean": 1.8745001491638495
+      },
+      {
+        "index": "LR | weights",
+        "kind": "LR",
+        "strategy": "weights",
+        "AP_mean": 0.215670701846761,
+        "AP_std": 0.005052466368080405,
+        "AUROC_mean": 0.658525256658649,
+        "AUROC_std": 0.006172198238982898,
+        "Brier_mean": 0.22461987434715783,
+        "Lift@20_mean": 1.8759759024416285
+      },
+      {
+        "index": "LR | under",
+        "kind": "LR",
+        "strategy": "under",
+        "AP_mean": 0.21388948692820356,
+        "AP_std": 0.004987078431781564,
+        "AUROC_mean": 0.6561534530788854,
+        "AUROC_std": 0.006443982004151758,
+        "Brier_mean": 0.1427642098911554,
+        "Lift@20_mean": 1.8646970712845603
+      },
+      {
+        "index": "XGB-max_depth4-colsample_bytree0.8 | none",
+        "kind": "XGB",
+        "strategy": "none",
+        "AP_mean": 0.21319830435006734,
+        "AP_std": 0.004517266012212942,
+        "AUROC_mean": 0.6534154031286589,
+        "AUROC_std": 0.00671952417750445,
+        "Brier_mean": 0.09769946038722992,
+        "Lift@20_mean": 1.848979929709189
+      },
+      {
+        "index": "LGBM-num_leaves15-colsample_bytree0.5 | smote",
+        "kind": "LGBM",
+        "strategy": "smote",
+        "AP_mean": 0.20214418276303345,
+        "AP_std": 0.005085185478552695,
+        "AUROC_mean": 0.6474824141538391,
+        "AUROC_std": 0.007023466654026239,
+        "Brier_mean": 0.09934191690518678,
+        "Lift@20_mean": 1.7840756933363358
+      },
+      {
+        "index": "HGB | smote",
+        "kind": "HGB",
+        "strategy": "smote",
+        "AP_mean": 0.19380961992041082,
+        "AP_std": 0.004713518092607922,
+        "AUROC_mean": 0.6405709871146443,
+        "AUROC_std": 0.006357973004710795,
+        "Brier_mean": 0.1009737763815413,
+        "Lift@20_mean": 1.743580980654123
+      },
+      {
+        "index": "XGB-max_depth3-colsample_bytree0.5 | smote",
+        "kind": "XGB",
+        "strategy": "smote",
+        "AP_mean": 0.18689662629454995,
+        "AP_std": 0.0050591441135359,
+        "AUROC_mean": 0.6288793153096089,
+        "AUROC_std": 0.006456170768018902,
+        "Brier_mean": 0.10301088243722915,
+        "Lift@20_mean": 1.6816360975707734
+      },
+      {
+        "index": "LR | smote",
+        "kind": "LR",
+        "strategy": "smote",
+        "AP_mean": 0.1613795896624319,
+        "AP_std": 0.006883366100994089,
+        "AUROC_mean": 0.584707735046926,
+        "AUROC_std": 0.006990615713447291,
+        "Brier_mean": 0.13484402421324626,
+        "Lift@20_mean": 1.4676890374989198
+      }
+    ],
+    "best_by_mean": "LGBM-num_leaves15-colsample_bytree0.5 | none",
+    "one_se": 0.0012595323445633128,
+    "chosen": "LGBM-num_leaves15-colsample_bytree0.5 | none"
+  },
+  "baselines_validation": {
+    "Prevalencia constante": {
+      "AUROC": 0.5,
+      "AP": 0.11355735805330243,
+      "Brier": 0.10066361701449715,
+      "Precision@20": 0.11083123425692695,
+      "Recall@20": 0.19520851818988466,
+      "Lift@20": 0.9759934200380405
+    },
+    "LACE (aprox.)": {
+      "AUROC": 0.568411611651592,
+      "AP": 0.1390298291095314,
+      "Brier": 0.10004351301951853,
+      "Precision@20": 0.15591939546599495,
+      "Recall@20": 0.274622892635315,
+      "Lift@20": 1.373045288644425
+    },
+    "HOSPITAL (parcial)": {
+      "AUROC": 0.5891792886026497,
+      "AP": 0.15573219452034565,
+      "Brier": 0.09920108616739313,
+      "Precision@20": 0.16624685138539042,
+      "Recall@20": 0.29281277728482696,
+      "Lift@20": 1.4639901300570606
+    },
+    "Solo utilización previa (LR)": {
+      "AUROC": 0.6055021504506023,
+      "AP": 0.18601326642002028,
+      "Brier": 0.09799121774292574,
+      "Precision@20": 0.18866498740554155,
+      "Recall@20": 0.33229813664596275,
+      "Lift@20": 1.6614069809283916
+    },
+    "v1: logística": {
+      "AUROC": 0.6532095635985964,
+      "AP": 0.2195211238802589,
+      "Brier": 0.09650280062133,
+      "Precision@20": 0.2093198992443325,
+      "Recall@20": 0.3686779059449867,
+      "Lift@20": 1.8432966637536627
+    }
+  },
+  "diagnostics_validation": {
+    "Elegido: LGBM-num_leaves15-colsample_bytree0.5 | none": {
+      "AUROC": 0.6619850460663156,
+      "AP": 0.21950306398682096,
+      "Brier": 0.09632936557654054,
+      "Precision@20": 0.2198992443324937,
+      "Recall@20": 0.3873114463176575,
+      "Lift@20": 1.9364596720300211
+    },
+    "v1: logística": {
+      "AUROC": 0.6532095635985964,
+      "AP": 0.2195211238802589,
+      "Brier": 0.09650280062133,
+      "Precision@20": 0.2093198992443325,
+      "Recall@20": 0.3686779059449867,
+      "Lift@20": 1.8432966637536627
+    },
+    "LACE (aprox.)": {
+      "AUROC": 0.568411611651592,
+      "AP": 0.1390298291095314,
+      "Brier": 0.10004351301951853,
+      "Precision@20": 0.15591939546599495,
+      "Recall@20": 0.274622892635315,
+      "Lift@20": 1.373045288644425
+    },
+    "Etiquetas permutadas (control)": {
+      "AUROC": 0.5078689572867584,
+      "AP": 0.11981887280471978,
+      "Brier": 0.10131765307664031,
+      "Precision@20": 0.11738035264483627,
+      "Recall@20": 0.2067435669920142,
+      "Lift@20": 1.0336657584948337
+    },
+    "Elegido sin A1Cresult": {
+      "AUROC": 0.6611994766400574,
+      "AP": 0.22260049354069208,
+      "Brier": 0.09622167001796586,
+      "Precision@20": 0.2151133501259446,
+      "Recall@20": 0.37888198757763975,
+      "Lift@20": 1.8943145016192877
+    }
+  },
+  "calibration": {
+    "method": "sigmoid",
+    "table": [
+      {
+        "método": "sin recalibrar",
+        "Brier": 0.09632936557654054,
+        "media_predicha": 0.11373079335040549,
+        "prevalencia": 0.11355735805330243
+      },
+      {
+        "método": "sigmoid",
+        "Brier": 0.09627843994396029,
+        "media_predicha": 0.11356064356017663,
+        "prevalencia": 0.11355735805330243
+      },
+      {
+        "método": "isotonic",
+        "Brier": 0.09640004047411085,
+        "media_predicha": 0.11355702818275201,
+        "prevalencia": 0.11355735805330243
+      }
+    ]
+  },
+  "decision": {
+    "R_cost": 100.0,
+    "effect": 0.2,
+    "scenarios": [
+      {
+        "escenario": "Llamado telefónico",
+        "costo_intervención": 1.0,
+        "umbral_pt": 0.05,
+        "fracción_seleccionada": 0.9073504962466623,
+        "recall": 0.9680567879325643,
+        "NB_modelo": 0.06796046996932101,
+        "NB_LACE": 0.06690248216137099,
+        "NB_intervenir_todos": 0.06690248216137099,
+        "altas_por_reingreso_captado": 8.253895508707608
+      },
+      {
+        "escenario": "Visita domiciliaria",
+        "costo_intervención": 5.0,
+        "umbral_pt": 0.25,
+        "fracción_seleccionada": 0.0432263590105295,
+        "recall": 0.13176574977817213,
+        "NB_modelo": 0.005541840898785833,
+        "NB_LACE": 1.6793457269047978e-05,
+        "NB_intervenir_todos": -0.18192352259559674,
+        "altas_por_reingreso_captado": 2.888888888888889
+      },
+      {
+        "escenario": "Cupo 20 % (implícito)",
+        "costo_intervención": 3.08,
+        "umbral_pt": 0.1538,
+        "fracción_seleccionada": 0.20001007607436144,
+        "recall": 0.38642413487133986,
+        "NB_modelo": 0.01550049826132326,
+        "NB_LACE": 0.0008411865423477612,
+        "NB_intervenir_todos": -0.04757858071003761,
+        "altas_por_reingreso_captado": 4.557979334098738
+      }
+    ],
+    "threshold_top20_validation": 0.1538175194973191,
+    "max_cost_top20": 3.076350389946382
+  },
+  "test": {
+    "Modelo v2": {
+      "AUROC": 0.6791288477883806,
+      "AP": 0.22351524912090023,
+      "Brier": 0.0963462849044319,
+      "Precision@20": 0.22300884955752212,
+      "Recall@20": 0.3904382470119522,
+      "Lift@20": 1.9517963544053871
+    },
+    "Modelo v2 sin recalibrar": {
+      "AUROC": 0.6791288477883806,
+      "AP": 0.22351524912090023,
+      "Brier": 0.09637761147439286,
+      "Precision@20": 0.22300884955752212,
+      "Recall@20": 0.3904382470119522,
+      "Lift@20": 1.9517963544053871
+    },
+    "v1 logística": {
+      "AUROC": 0.6716158056975691,
+      "AP": 0.21708443161124108,
+      "Brier": 0.09699318767109752,
+      "Precision@20": 0.2225031605562579,
+      "Recall@20": 0.3895528995130589,
+      "Lift@20": 1.9473705123319056
+    },
+    "LACE (aprox.)": {
+      "AUROC": 0.5798471258865862,
+      "AP": 0.1445409377212295,
+      "Brier": 0.1003407314121082,
+      "Precision@20": 0.1638432364096081,
+      "Recall@20": 0.2868525896414343,
+      "Lift@20": 1.4339728318080396
+    },
+    "HOSPITAL (parcial)": {
+      "AUROC": 0.5951530535894087,
+      "AP": 0.15700714295454865,
+      "Brier": 0.09966464019811053,
+      "Precision@20": 0.17269279393173198,
+      "Recall@20": 0.3023461708720673,
+      "Lift@20": 1.5114250680939676
+    },
+    "Solo utilización previa (LR)": {
+      "AUROC": 0.6133226977375509,
+      "AP": 0.18371643054042258,
+      "Brier": 0.09875305550061264,
+      "Precision@20": 0.19949431099873577,
+      "Recall@20": 0.34926958831341304,
+      "Lift@20": 1.7459946979884926
+    },
+    "Prevalencia constante": {
+      "AUROC": 0.5,
+      "AP": 0.114258257043144,
+      "Brier": 0.1012035961683153,
+      "Precision@20": 0.1213653603034134,
+      "Recall@20": 0.21248339973439576,
+      "Lift@20": 1.0622020976355848
+    }
+  },
+  "test_prevalence": 0.114258257043144,
+  "operating_top20": {
+    "selected": 3955,
+    "tp": 882,
+    "fp": 3073,
+    "fn": 1377,
+    "precision": 0.22300884955752212,
+    "recall": 0.3904382470119522,
+    "lift": 1.9517963544053871,
+    "fraction": 0.20004046330484043,
+    "threshold": 0.15455980065617347
+  },
+  "ci95": {
+    "AP": {
+      "IC95_inferior": 0.20868568183031874,
+      "IC95_superior": 0.24146406481055438
+    },
+    "AP_minus_prevalence": {
+      "IC95_inferior": 0.09683712510359084,
+      "IC95_superior": 0.12572934224723897
+    },
+    "AUROC": {
+      "IC95_inferior": 0.6673189994555776,
+      "IC95_superior": 0.6917296058050996
+    },
+    "Brier": {
+      "IC95_inferior": 0.09269898518599902,
+      "IC95_superior": 0.10051430993188633
+    },
+    "Lift@20": {
+      "IC95_inferior": 1.8622227263642315,
+      "IC95_superior": 2.054056767099664
+    },
+    "Precision@20": {
+      "IC95_inferior": 0.20785522006246132,
+      "IC95_superior": 0.23991560996739067
+    },
+    "Recall@20": {
+      "IC95_inferior": 0.37248155619231776,
+      "IC95_superior": 0.41085185268662094
+    }
+  },
+  "paired_differences": [
+    {
+      "modelo": "Modelo v2 − HOSPITAL (parcial)",
+      "metrica": "AP",
+      "IC95_inferior": 0.05528890855372208,
+      "IC95_superior": 0.07711250939037856
+    },
+    {
+      "modelo": "Modelo v2 − HOSPITAL (parcial)",
+      "metrica": "AUROC",
+      "IC95_inferior": 0.07080618621382873,
+      "IC95_superior": 0.09535389154367918
+    },
+    {
+      "modelo": "Modelo v2 − HOSPITAL (parcial)",
+      "metrica": "Brier",
+      "IC95_inferior": -0.003930733882316443,
+      "IC95_superior": -0.002628885099838899
+    },
+    {
+      "modelo": "Modelo v2 − HOSPITAL (parcial)",
+      "metrica": "Lift@20",
+      "IC95_inferior": 0.35045298044388434,
+      "IC95_superior": 0.561497656126258
+    },
+    {
+      "modelo": "Modelo v2 − HOSPITAL (parcial)",
+      "metrica": "Recall@20",
+      "IC95_inferior": 0.07009567914930126,
+      "IC95_superior": 0.1123052048620012
+    },
+    {
+      "modelo": "Modelo v2 − LACE (aprox.)",
+      "metrica": "AP",
+      "IC95_inferior": 0.0670647725865964,
+      "IC95_superior": 0.09335886060029526
+    },
+    {
+      "modelo": "Modelo v2 − LACE (aprox.)",
+      "metrica": "AUROC",
+      "IC95_inferior": 0.08704777470866579,
+      "IC95_superior": 0.1152904064334991
+    },
+    {
+      "modelo": "Modelo v2 − LACE (aprox.)",
+      "metrica": "Brier",
+      "IC95_inferior": -0.004763499794381041,
+      "IC95_superior": -0.0033333967478202226
+    },
+    {
+      "modelo": "Modelo v2 − LACE (aprox.)",
+      "metrica": "Lift@20",
+      "IC95_inferior": 0.40224821447049225,
+      "IC95_superior": 0.6472511726827439
+    },
+    {
+      "modelo": "Modelo v2 − LACE (aprox.)",
+      "metrica": "Recall@20",
+      "IC95_inferior": 0.08045976139843622,
+      "IC95_superior": 0.12946610796469205
+    },
+    {
+      "modelo": "Modelo v2 − v1 logística",
+      "metrica": "AP",
+      "IC95_inferior": 0.0004909643600072136,
+      "IC95_superior": 0.013475988136377702
+    },
+    {
+      "modelo": "Modelo v2 − v1 logística",
+      "metrica": "AUROC",
+      "IC95_inferior": 0.0025096456399227272,
+      "IC95_superior": 0.012762984572646744
+    },
+    {
+      "modelo": "Modelo v2 − v1 logística",
+      "metrica": "Brier",
+      "IC95_inferior": -0.0009890692788885604,
+      "IC95_superior": -0.00029839933589770145
+    },
+    {
+      "modelo": "Modelo v2 − v1 logística",
+      "metrica": "Lift@20",
+      "IC95_inferior": -0.05508990314457463,
+      "IC95_superior": 0.08753372687246681
+    },
+    {
+      "modelo": "Modelo v2 − v1 logística",
+      "metrica": "Recall@20",
+      "IC95_inferior": -0.011019387925719222,
+      "IC95_superior": 0.017509041846797174
+    }
+  ],
+  "continuation_criteria": {
+    "AP/prevalencia ≥ 1,5": true,
+    "Lift@20 ≥ 1,5": true,
+    "IC95 inf. (AP − prevalencia) > 0": true,
+    "IC95 inf. AUROC > 0,5": true,
+    "IC95 inf. (AP v2 − AP LACE) > 0": true
+  },
+  "feasible": true,
+  "fit_seconds": 5.778450835001422,
+  "importance_validation": [
+    {
+      "feature": "number_inpatient",
+      "drop_AP": 0.047011928358631494,
+      "sd": 0.005624489010006774,
+      "rank": 1
+    },
+    {
+      "feature": "discharge_disposition_id",
+      "drop_AP": 0.026114219112080457,
+      "sd": 0.003357650848810719,
+      "rank": 2
+    },
+    {
+      "feature": "diag_2",
+      "drop_AP": 0.0038285614286245493,
+      "sd": 0.0026194807873164425,
+      "rank": 3
+    },
+    {
+      "feature": "medical_specialty",
+      "drop_AP": 0.003236061013146391,
+      "sd": 0.001802541254061415,
+      "rank": 4
+    },
+    {
+      "feature": "age",
+      "drop_AP": 0.003051951424621163,
+      "sd": 0.001458536305098189,
+      "rank": 5
+    },
+    {
+      "feature": "time_in_hospital",
+      "drop_AP": 0.0026698368296266374,
+      "sd": 0.0021031430297860057,
+      "rank": 6
+    },
+    {
+      "feature": "number_diagnoses",
+      "drop_AP": 0.002348603886596007,
+      "sd": 0.0003986620292843503,
+      "rank": 7
+    },
+    {
+      "feature": "diag_1_group",
+      "drop_AP": 0.002244349997231826,
+      "sd": 0.0008182413086501668,
+      "rank": 8
+    },
+    {
+      "feature": "number_emergency",
+      "drop_AP": 0.0019290197846684675,
+      "sd": 0.0006879370396596229,
+      "rank": 9
+    },
+    {
+      "feature": "A1Cresult",
+      "drop_AP": 0.001244278921808073,
+      "sd": 0.0003463573619414551,
+      "rank": 10
+    },
+    {
+      "feature": "diag_3",
+      "drop_AP": 0.0011802007990799946,
+      "sd": 0.0010557075613365347,
+      "rank": 11
+    },
+    {
+      "feature": "diabetesMed",
+      "drop_AP": 0.0010072337637511586,
+      "sd": 0.000703398561221641,
+      "rank": 12
+    },
+    {
+      "feature": "diag_2_group",
+      "drop_AP": 0.0009635602809837107,
+      "sd": 0.0009676177160899957,
+      "rank": 13
+    },
+    {
+      "feature": "admission_type_id",
+      "drop_AP": 0.0009264382479290678,
+      "sd": 0.0003534837740662065,
+      "rank": 14
+    },
+    {
+      "feature": "diag_1",
+      "drop_AP": 0.0007220898524731179,
+      "sd": 0.002097003447319052,
+      "rank": 15
+    }
+  ],
+  "subgroups": [
+    {
+      "variable": "gender",
+      "grupo": "Female",
+      "n": 10470,
+      "prevalencia": 0.11470869149952244,
+      "AUROC": 0.6913019493501165,
+      "AUROC_lo": 0.675738872413414,
+      "AUROC_hi": 0.7077107047189323,
+      "AP": 0.22866039980561392,
+      "AP_lo": 0.21189805721327765,
+      "AP_hi": 0.24888822674594327,
+      "pred_media": 0.11532070764263626
+    },
+    {
+      "variable": "gender",
+      "grupo": "Male",
+      "n": 9301,
+      "prevalencia": 0.1137512095473605,
+      "AUROC": 0.664996616250209,
+      "AUROC_lo": 0.6433095313013487,
+      "AUROC_hi": 0.6795834458388479,
+      "AP": 0.21818160952191837,
+      "AP_lo": 0.18928823399225983,
+      "AP_hi": 0.24386845332945667,
+      "pred_media": 0.11429652473734593
+    },
+    {
+      "variable": "age",
+      "grupo": "[20-30)",
+      "n": 336,
+      "prevalencia": 0.13392857142857142,
+      "AUROC": 0.7623520427644139,
+      "AUROC_lo": 0.6749825003011403,
+      "AUROC_hi": 0.8422345669657956,
+      "AP": 0.2971718966898731,
+      "AP_lo": 0.18831765875856,
+      "AP_hi": 0.4336594838015506,
+      "pred_media": 0.13677656079131584
+    },
+    {
+      "variable": "age",
+      "grupo": "[30-40)",
+      "n": 710,
+      "prevalencia": 0.10845070422535211,
+      "AUROC": 0.7269034283252293,
+      "AUROC_lo": 0.6567201003997336,
+      "AUROC_hi": 0.7738192786098484,
+      "AP": 0.24790307344438473,
+      "AP_lo": 0.17923221241996337,
+      "AP_hi": 0.34743125649909384,
+      "pred_media": 0.11013647850529251
+    },
+    {
+      "variable": "age",
+      "grupo": "[40-50)",
+      "n": 2007,
+      "prevalencia": 0.10712506228201295,
+      "AUROC": 0.721187188538206,
+      "AUROC_lo": 0.6775246923133157,
+      "AUROC_hi": 0.7573407567683358,
+      "AP": 0.23949093857541479,
+      "AP_lo": 0.18392997222597635,
+      "AP_hi": 0.30098283690584493,
+      "pred_media": 0.11136404176119902
+    },
+    {
+      "variable": "age",
+      "grupo": "[50-60)",
+      "n": 3378,
+      "prevalencia": 0.10331557134399053,
+      "AUROC": 0.7204984103049697,
+      "AUROC_lo": 0.6802719754798289,
+      "AUROC_hi": 0.757481119977481,
+      "AP": 0.25968473510026063,
+      "AP_lo": 0.2130045471671784,
+      "AP_hi": 0.31998408528315386,
+      "pred_media": 0.10087626595790376
+    },
+    {
+      "variable": "age",
+      "grupo": "[60-70)",
+      "n": 4472,
+      "prevalencia": 0.11627906976744186,
+      "AUROC": 0.6613151082217378,
+      "AUROC_lo": 0.6296206286586994,
+      "AUROC_hi": 0.6834424509075605,
+      "AP": 0.217188319148223,
+      "AP_lo": 0.18763771020103256,
+      "AP_hi": 0.24725995411076043,
+      "pred_media": 0.1120212588115535
+    },
+    {
+      "variable": "age",
+      "grupo": "[70-80)",
+      "n": 5025,
+      "prevalencia": 0.11860696517412936,
+      "AUROC": 0.6712398150687734,
+      "AUROC_lo": 0.6484378501213509,
+      "AUROC_hi": 0.6935592552329892,
+      "AP": 0.24452529610656873,
+      "AP_lo": 0.21497562088712882,
+      "AP_hi": 0.28349114785020046,
+      "pred_media": 0.12053211029754611
+    },
+    {
+      "variable": "age",
+      "grupo": "[80-90)",
+      "n": 3350,
+      "prevalencia": 0.1182089552238806,
+      "AUROC": 0.6277210151617735,
+      "AUROC_lo": 0.5965243891846467,
+      "AUROC_hi": 0.6529302256818119,
+      "AP": 0.17597264603265572,
+      "AP_lo": 0.15071003162532604,
+      "AP_hi": 0.20644550323731484,
+      "pred_media": 0.12399007511223088
+    },
+    {
+      "variable": "age",
+      "grupo": "[90-100)",
+      "n": 493,
+      "prevalencia": 0.12373225152129817,
+      "AUROC": 0.5603369763205829,
+      "AUROC_lo": 0.48302100100064754,
+      "AUROC_hi": 0.6389797137683003,
+      "AP": 0.18143370480105842,
+      "AP_lo": 0.12305569961244583,
+      "AP_hi": 0.2934554475196417,
+      "pred_media": 0.12182277472389742
+    },
+    {
+      "variable": "A1Cresult",
+      "grupo": ">7",
+      "n": 792,
+      "prevalencia": 0.10353535353535354,
+      "AUROC": 0.6448814840261079,
+      "AUROC_lo": 0.5842037816876537,
+      "AUROC_hi": 0.7020189128394333,
+      "AP": 0.2028047544725657,
+      "AP_lo": 0.14366941751350512,
+      "AP_hi": 0.29275701842443075,
+      "pred_media": 0.10523000564131907
+    },
+    {
+      "variable": "A1Cresult",
+      "grupo": ">8",
+      "n": 1561,
+      "prevalencia": 0.10185778347213324,
+      "AUROC": 0.6826321786486512,
+      "AUROC_lo": 0.6365223179958773,
+      "AUROC_hi": 0.7280826518651969,
+      "AP": 0.2212608843974213,
+      "AP_lo": 0.17035093726552866,
+      "AP_hi": 0.29491577919418194,
+      "pred_media": 0.1037061342606536
+    },
+    {
+      "variable": "A1Cresult",
+      "grupo": "None",
+      "n": 16426,
+      "prevalencia": 0.11658346523803725,
+      "AUROC": 0.680853545334205,
+      "AUROC_lo": 0.6656127499925013,
+      "AUROC_hi": 0.6930780811335006,
+      "AP": 0.22769268868244985,
+      "AP_lo": 0.20823893249561778,
+      "AP_hi": 0.2463673065199422,
+      "pred_media": 0.11702586485169733
+    },
+    {
+      "variable": "A1Cresult",
+      "grupo": "Norm",
+      "n": 992,
+      "prevalencia": 0.10383064516129033,
+      "AUROC": 0.6546790874441666,
+      "AUROC_lo": 0.5933290282843366,
+      "AUROC_hi": 0.7030391135569708,
+      "AP": 0.19308678503509746,
+      "AP_lo": 0.13703641070341888,
+      "AP_hi": 0.2725577352294052,
+      "pred_media": 0.10381601763878143
+    },
+    {
+      "variable": "alta_domicilio",
+      "grupo": "no",
+      "n": 5210,
+      "prevalencia": 0.1527831094049904,
+      "AUROC": 0.6554490281038178,
+      "AUROC_lo": 0.6376925006655884,
+      "AUROC_hi": 0.677128585655741,
+      "AP": 0.26957331296889236,
+      "AP_lo": 0.24286317109379973,
+      "AP_hi": 0.2972568007875713,
+      "pred_media": 0.14716956224658737
+    },
+    {
+      "variable": "alta_domicilio",
+      "grupo": "sí",
+      "n": 14561,
+      "prevalencia": 0.100473868552984,
+      "AUROC": 0.6726895112265319,
+      "AUROC_lo": 0.6564640129814001,
+      "AUROC_hi": 0.6894697135478759,
+      "AP": 0.19870692670090798,
+      "AP_lo": 0.1760448479135462,
+      "AP_hi": 0.22443288165039232,
+      "pred_media": 0.10327081699716614
+    }
+  ],
+  "hba1c": [
+    {
+      "A1Cresult": ">7",
+      "size": 2967,
+      "sum": 300,
+      "mean": 0.10111223458038422,
+      "IC95_lo": 0.09077473419156254,
+      "IC95_hi": 0.11248133977751071,
+      "fracción_episodios": 0.037691027579110505
+    },
+    {
+      "A1Cresult": ">8",
+      "size": 6214,
+      "sum": 639,
+      "mean": 0.10283231412938526,
+      "IC95_lo": 0.09552386959286727,
+      "IC95_hi": 0.11063152683923227,
+      "fracción_episodios": 0.07893901091223211
+    },
+    {
+      "A1Cresult": "None",
+      "size": 65673,
+      "sum": 7697,
+      "mean": 0.11720189423355108,
+      "IC95_lo": 0.11476411037423126,
+      "IC95_hi": 0.11968445969829794,
+      "fracción_episodios": 0.834271268689897
+    },
+    {
+      "A1Cresult": "Norm",
+      "size": 3865,
+      "sum": 376,
+      "mean": 0.09728331177231565,
+      "IC95_lo": 0.08833649213166955,
+      "IC95_hi": 0.10702989350686373,
+      "fracción_episodios": 0.0490986928187604
+    }
+  ],
+  "sample_size": [
+    {
+      "contraste": "Eficacia en el 20 % priorizado (intervención vs nada)",
+      "p_control": 0.2193954659949622,
+      "p_intervención": 0.17551637279596977,
+      "n_por_brazo": 1291
+    },
+    {
+      "contraste": "Estrategia en todas las altas (guiada por modelo vs habitual)",
+      "p_control": 0.11355735805330243,
+      "p_intervención": 0.10478109728449796,
+      "n_por_brazo": 19820
+    }
+  ]
+}

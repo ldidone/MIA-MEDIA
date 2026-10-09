@@ -1,0 +1,46 @@
+variable,tipo,descripción,sistema_origen,disponible_al_alta,estándar_destino,faltante_train,rank_importancia
+gender,categórica,Sexo registrado,ADT / admisión,Sí (ingreso),HL7 FHIR administrative-gender,0.0,18
+age,categórica,Edad en decenios,ADT / padrón,Sí (ingreso),Fecha de nacimiento → edad,0.0,5
+admission_type_id,categórica,"Tipo de admisión (urgencia, electiva…)",ADT,Sí (ingreso),FHIR Encounter.priority / SNOMED CT,0.0,14
+discharge_disposition_id,categórica,Destino al alta,Sistema de egresos / HCE,"Sí, si se registra antes de emitir el score",FHIR Encounter.hospitalization.dischargeDisposition,0.0,2
+admission_source_id,categórica,Origen de la admisión,ADT,Sí (ingreso),FHIR Encounter.hospitalization.admitSource,0.0,36
+time_in_hospital,numérica,Días de internación,ADT / egresos,Sí (al alta),—,0.0,6
+medical_specialty,categórica,Especialidad del médico tratante,HCE / ADT,Sí,SNOMED CT (especialidad clínica),0.4905045014438594,4
+num_lab_procedures,numérica,Cantidad de pruebas de laboratorio,LIS (laboratorio),Sí (conteo); resultados pendientes posibles,LOINC,0.0,44
+num_procedures,numérica,Procedimientos no de laboratorio,HCE / facturación,Parcial: la codificación suele completarse después,CIE-9-CM vol. 3 → CIE-10-PCS / SNOMED CT,0.0,19
+num_medications,numérica,Medicamentos distintos administrados,Farmacia / prescripción electrónica,Sí,ATC / SNOMED CT,0.0,16
+number_outpatient,numérica,Consultas ambulatorias año previo,HCE de la red / turnos,"Sí, solo dentro de la red",—,0.0,40
+number_emergency,numérica,Visitas a guardia año previo,Sistema de guardia,"Sí, solo dentro de la red",—,0.0,9
+number_inpatient,numérica,Internaciones año previo,Sistema de egresos,"Sí, solo dentro de la red",—,0.0,1
+diag_1,categórica,Diagnóstico principal (CIE-9-CM),Codificación de egresos,Diferida: suele codificarse días después del alta,CIE-10 OMS (vía GEMs) / SNOMED CT,0.0001868523866145745,15
+diag_2,categórica,Diagnóstico secundario,Codificación de egresos,Diferida,CIE-10 OMS / SNOMED CT,0.002259215219976219,3
+diag_3,categórica,Diagnóstico secundario adicional,Codificación de egresos,Diferida,CIE-10 OMS / SNOMED CT,0.011126210293867844,11
+number_diagnoses,numérica,Cantidad de diagnósticos codificados,Codificación de egresos,Diferida,—,0.0,7
+max_glu_serum,categórica,Glucemia sérica (categorizada),LIS,Sí si se midió,LOINC 2345-7,0.0,22
+A1Cresult,categórica,HbA1c (categorizada; None = no medida),LIS,Sí si se midió; el resultado puede llegar tarde,LOINC 4548-4,0.0,10
+metformin,categórica,metformin: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BA02,0.0,43
+repaglinide,categórica,repaglinide: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BX02,0.0,28
+nateglinide,categórica,nateglinide: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BX03,0.0,35
+chlorpropamide,categórica,chlorpropamide: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BB02,0.0,29
+glimepiride,categórica,glimepiride: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BB12,0.0,37
+acetohexamide,categórica,acetohexamide: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BB31,0.0,32
+glipizide,categórica,glipizide: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BB07,0.0,38
+glyburide,categórica,glyburide: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BB01,0.0,41
+tolbutamide,categórica,tolbutamide: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BB03,0.0,27
+pioglitazone,categórica,pioglitazone: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BG03,0.0,39
+rosiglitazone,categórica,rosiglitazone: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BG02,0.0,17
+acarbose,categórica,acarbose: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BF01,0.0,23
+miglitol,categórica,miglitol: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BF02,0.0,34
+troglitazone,categórica,troglitazone: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BG01,0.0,33
+tolazamide,categórica,tolazamide: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BB05,0.0,24
+insulin,categórica,insulin: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10A,0.0,45
+glyburide-metformin,categórica,glyburide-metformin: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BD02,0.0,21
+glipizide-metformin,categórica,glipizide-metformin: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BD (combinación),0.0,25
+glimepiride-pioglitazone,categórica,glimepiride-pioglitazone: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BD06,0.0,30
+metformin-rosiglitazone,categórica,metformin-rosiglitazone: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BD03,0.0,26
+metformin-pioglitazone,categórica,metformin-pioglitazone: dosis (No/Steady/Up/Down),Farmacia / prescripción,Sí,ATC A10BD05,0.0,31
+change,categórica,Cambio de medicación antidiabética,Farmacia / HCE,Sí (conciliación al alta),ATC A10,0.0,42
+diabetesMed,categórica,Prescripción de antidiabéticos,Farmacia,Sí,ATC A10,0.0,12
+diag_1_group,categórica,Grupo diagnóstico de diag_1 (Strack),Derivada,Diferida (depende de diag),Capítulos CIE-10,0.0,8
+diag_2_group,categórica,Grupo diagnóstico de diag_2 (Strack),Derivada,Diferida (depende de diag),Capítulos CIE-10,0.0,13
+diag_3_group,categórica,Grupo diagnóstico de diag_3 (Strack),Derivada,Diferida (depende de diag),Capítulos CIE-10,0.0,20

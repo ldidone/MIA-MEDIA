@@ -1,0 +1,10 @@
+grupo,CIE-9-CM,CIE-10 (aprox. por capítulo)
+Circulatory,"390–459, 785","I00–I99, R00–R03"
+Respiratory,"460–519, 786","J00–J99, R04–R09"
+Digestive,"520–579, 787","K00–K93, R10–R19"
+Diabetes,250.xx,E10–E14 (OMS) / E08–E13 (CM)
+Injury,800–999,S00–T98
+Musculoskeletal,710–739,M00–M99
+Genitourinary,"580–629, 788","N00–N99, R30–R39"
+Neoplasms,140–239,C00–D48
+Other,"resto, V y E",resto; V → Z00–Z99; E → V01–Y98
